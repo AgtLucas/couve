@@ -1,53 +1,80 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
+'use strict'
 
-var React = require('react-native');
+var React = require('react-native')
+var Mapbox = require('react-native-mapbox-gl')
+var secrets = require('./secrets')
+var mapRef = 'mapRef'
+
 var {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-} = React;
+  StatusBarIOS,
+  View
+} = React
 
 var Couve = React.createClass({
-  render: function() {
+  mixins: [Mapbox.Mixin],
+
+  getInitialState () {
+    return {
+      center: {
+        latitude: -26.4537736,
+        longitude: -49.1179425
+      },
+      zoom: 11
+    }
+  },
+
+  onRegionChange (location) {
+    this.setState({ currentZoom: location.zoom })
+  },
+
+  onRegionWillChange (location) {
+    console.log(location)
+  },
+
+  onUpdateUserLocation (location) {
+    console.log(location)
+  },
+
+  onLongPress (location) {
+    console.log('Long pressed', location)
+  },
+
+  render: function () {
+    StatusBarIOS.setHidden(true)
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <View>
+        <Mapbox
+          style={styles.map}
+          direction={0}
+          rotateEnabled={true}
+          scrollEnabled={true}
+          zoomEnabled={true}
+          showsUserLocation={true}
+          ref={mapRef}
+          accessToken={secrets.development.mapboxToken}
+          styleURL={this.mapStyles.emerald}
+          userTrackingMode={this.userTrackingMode.none}
+          centerCoordinate={this.state.center}
+          zoomLevel={this.state.zoom}
+          onRegionChange={this.onRegionChange}
+          onRegionWillChange={this.onRegionWillChange}
+          onUpdateUserLocation={this.onUpdateUserLocation}
+          onLongPress={this.onLongPress}
+        />
       </View>
-    );
+    )
   }
-});
+})
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flex: 1
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  map: {
+    flex: 1
+  }
+})
 
-AppRegistry.registerComponent('Couve', () => Couve);
+AppRegistry.registerComponent('Couve', () => Couve)
