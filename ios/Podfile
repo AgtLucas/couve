@@ -1,5 +1,3 @@
-platform :ios, '8.0'
-
 pod 'React', :path => '../node_modules/react-native'
 pod 'React/RCTGeolocation', :path => '../node_modules/react-native'
 pod 'React/RCTImage', :path => '../node_modules/react-native'
