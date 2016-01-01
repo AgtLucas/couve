@@ -2,6 +2,7 @@
 
 var React = require('react-native')
 var Mapbox = require('react-native-mapbox-gl')
+var secrets = require('./secrets')
 var mapRef = 'mapRef'
 
 var {
