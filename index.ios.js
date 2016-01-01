@@ -21,7 +21,7 @@ var Couve = React.createClass({
         latitude: -26.4537736,
         longitude: -49.1179425
       },
-      zoom: 11
+      zoom: 15
     }
   },
 
@@ -44,7 +44,7 @@ var Couve = React.createClass({
   render: function () {
     StatusBarIOS.setHidden(true)
     return (
-      <View>
+      <View style={styles.container}>
         <Mapbox
           style={styles.map}
           direction={0}
