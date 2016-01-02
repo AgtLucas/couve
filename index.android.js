@@ -19,8 +19,7 @@ var Couve = React.createClass({
       center: {
         latitude: -26.4537736,
         longitude: -49.1179425
-      },
-      zoom: 15
+      }
     }
   },
 
@@ -28,16 +27,8 @@ var Couve = React.createClass({
     this.setState({ currentZoom: location.zoom })
   },
 
-  onRegionWillChange (location) {
+  onUserLocationChange (location) {
     console.log(location)
-  },
-
-  onUpdateUserLocation (location) {
-    console.log(location)
-  },
-
-  onLongPress (location) {
-    console.log('Long pressed', location)
   },
 
   render: function () {
@@ -45,22 +36,22 @@ var Couve = React.createClass({
     return (
       <View style={styles.container}>
         <Mapbox
-          style={styles.map}
-          direction={0}
+          accessToken={secrets.development.mapboxToken}
+          centerCoordinate={this.state.center}
+          debugActive={false}
+          direction={10}
+          ref={mapRef}
+          onRegionChange={this.onRegionChange}
           rotateEnabled={true}
           scrollEnabled={true}
-          zoomEnabled={true}
+          style={styles.map}
           showsUserLocation={true}
-          ref={mapRef}
-          accessToken={secrets.development.mapboxToken}
           styleURL={this.mapStyles.emerald}
           userTrackingMode={this.userTrackingMode.none}
-          centerCoordinate={this.state.center}
-          zoomLevel={this.state.zoom}
-          onRegionChange={this.onRegionChange}
-          onRegionWillChange={this.onRegionWillChange}
-          onUpdateUserLocation={this.onUpdateUserLocation}
-          onLongPress={this.onLongPress}
+          zoomEnabled={true}
+          zoomLevel={10}
+          compassIsHidden={true}
+          onUserLocationChange={this.onUserLocationChange}
         />
       </View>
     )
