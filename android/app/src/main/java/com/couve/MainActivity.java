@@ -10,6 +10,7 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.mapbox.reactnativemapboxgl.ReactNativeMapboxGLPackage;
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
 
